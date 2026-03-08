@@ -5,26 +5,26 @@ const steps = [
   {
     icon: Upload,
     number: '01',
-    title: 'We Install',
-    description: 'We visit your location and install Epiphan Pearl encoders, cameras, and all necessary cabling.',
+    title: 'Setup',
+    description: 'We help you get Epiphan Pearl encoders configured and connected at your location.',
   },
   {
     icon: Link2,
     number: '02',
-    title: 'You Connect',
+    title: 'Connect',
     description: 'Plug in your HDMI sources (laptops, cameras, document cams) and connect to your network.',
   },
   {
     icon: Eye,
     number: '03',
-    title: 'We Monitor',
-    description: 'Our AI-powered operations center monitors your encoders 24/7, ensuring every recording succeeds.',
+    title: 'Monitor',
+    description: 'AI-powered monitoring watches your encoders and alerts us if anything needs attention.',
   },
   {
     icon: Sparkles,
     number: '04',
-    title: 'You Relax',
-    description: 'Focus on teaching, preaching, or presenting. We handle the video infrastructure.',
+    title: 'Record',
+    description: 'Focus on your content. The system handles recording, streaming, and archiving.',
   },
 ]
 
@@ -33,8 +33,8 @@ export function HowItWorks() {
     <Section id="how-it-works" dark>
       <SectionHeader
         tag="How It Works"
-        title="From Zero to Recording in 4 Simple Steps"
-        description="We make professional video infrastructure accessible to organizations of any size."
+        title="Simple Setup, Reliable Recording"
+        description="Our goal: make professional video infrastructure accessible to organizations of any size."
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

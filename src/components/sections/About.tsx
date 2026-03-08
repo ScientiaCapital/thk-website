@@ -39,9 +39,9 @@ export function About() {
             <p>{t('about.p3')}</p>
           </div>
           <div className="flex flex-wrap gap-3 mt-6">
-            <Badge variant="cyan">{lang === 'es' ? 'Partner de Epiphan' : 'Epiphan Partner'}</Badge>
-            <Badge variant="cyan">{lang === 'es' ? 'CDMX' : 'Mexico City Based'}</Badge>
-            <Badge variant="cyan">{lang === 'es' ? 'Operaciones Remotas' : 'Remote Operations'}</Badge>
+            <Badge variant="cyan">{lang === 'es' ? 'Equipos Epiphan' : 'Epiphan Equipment'}</Badge>
+            <Badge variant="cyan">{lang === 'es' ? 'CDMX' : 'Mexico City'}</Badge>
+            <Badge variant="cyan">{lang === 'es' ? 'IA + Humano' : 'AI + Human'}</Badge>
           </div>
         </div>
       </div>

@@ -39,14 +39,16 @@ export function Hero() {
 
         {/* CTA buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
-          <Button size="lg">
-            {t('hero.cta.industries')} <ArrowRight className="w-4 h-4" />
+          <Button size="lg" asChild>
+            <a href="#verticals">
+              {t('hero.cta.industries')} <ArrowRight className="w-4 h-4" />
+            </a>
           </Button>
-          <Button variant="outline" size="lg">
-            {t('hero.cta.services')}
+          <Button variant="outline" size="lg" asChild>
+            <a href="#managed">{t('hero.cta.services')}</a>
           </Button>
-          <Button variant="outline" size="lg">
-            {t('hero.cta.quote')}
+          <Button variant="outline" size="lg" asChild>
+            <a href="#contact">{t('hero.cta.quote')}</a>
           </Button>
         </div>
 

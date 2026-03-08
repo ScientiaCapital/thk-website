@@ -1,11 +1,5 @@
-import { Youtube, Instagram, Linkedin, ExternalLink } from 'lucide-react'
+import { ExternalLink, Mail } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
-
-const socialLinks = [
-  { icon: Youtube, href: '#', label: 'YouTube' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-]
 
 export function Footer() {
   const { t } = useLanguage()
@@ -62,19 +56,14 @@ export function Footer() {
             ))}
           </nav>
 
-          {/* Social */}
-          <div className="flex gap-3">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                className="w-10 h-10 rounded-lg bg-navy-950 border border-blue-500/10 flex items-center justify-center text-slate-400 hover:border-thk-cyan hover:text-thk-cyan transition-all"
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
+          {/* Contact */}
+          <a
+            href="#contact"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-navy-950 border border-blue-500/10 hover:border-thk-cyan hover:text-thk-cyan transition-all text-slate-400"
+          >
+            <Mail className="w-4 h-4" />
+            <span className="text-sm">{t('nav.contact')}</span>
+          </a>
         </div>
       </div>
     </footer>

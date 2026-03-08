@@ -63,19 +63,10 @@ export function Contact() {
 
           <div className="space-y-6">
             <ContactDetail icon={MapPin} label={t('contact.location')} value="Ciudad de México, CDMX" />
-            <ContactDetail
-              icon={Mail}
-              label={t('contact.email')}
-              value="hello@thkenterprises.com"
-              href="mailto:hello@thkenterprises.com"
-            />
-            <ContactDetail
-              icon={Phone}
-              label={t('contact.whatsapp')}
-              value="+52 55 0000 0000"
-              href="https://wa.me/525500000000"
-            />
             <ContactDetail icon={Clock} label={t('contact.availability')} value={t('contact.availability.value')} />
+            <p className="text-sm text-slate-500 italic">
+              {t('contact.form.note')}
+            </p>
           </div>
         </div>
 
