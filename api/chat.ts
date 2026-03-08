@@ -1,6 +1,5 @@
 import { anthropic } from '@ai-sdk/anthropic'
 import { streamText } from 'ai'
-import { z } from 'zod'
 
 const systemPrompt = `You are a professional Business Development Representative for THK Enterprises, a video infrastructure company in Mexico City specializing in managed AV infrastructure for schools, churches, hospitals, and corporations.
 
@@ -25,30 +24,7 @@ Key talking points:
 - Zero on-site technicians needed - everything managed remotely from Mexico City
 - Trilingual support: English, Spanish, Portuguese
 
-When collecting contact info, ask for name, email, and what service they're interested in.`
-
-// Define tool schemas
-const saveLeadSchema = z.object({
-  name: z.string().describe("Prospect's full name"),
-  email: z.string().email().describe('Contact email'),
-  phone: z.string().optional().describe('Phone or WhatsApp number'),
-  company: z.string().optional().describe('Company or organization name'),
-  service: z.enum([
-    'VIaaS',
-    'Lecture Capture',
-    'Livestreaming',
-    'Video Production',
-    'Other',
-  ]).describe('Primary service interest'),
-  notes: z.string().optional().describe('Additional notes from conversation'),
-})
-
-const draftFollowUpSchema = z.object({
-  prospectName: z.string(),
-  prospectEmail: z.string().email(),
-  keyPoints: z.array(z.string()).describe('Key points discussed'),
-  callToAction: z.string().describe('Suggested next step'),
-})
+When a prospect provides their contact information, acknowledge it and let them know our team will follow up within 24 hours.`
 
 export async function POST(req: Request) {
   const { messages } = await req.json()
@@ -57,17 +33,6 @@ export async function POST(req: Request) {
     model: anthropic('claude-sonnet-4-6'),
     system: systemPrompt,
     messages,
-    tools: {
-      saveLead: {
-        description: 'Save prospect contact information when they provide it',
-        parameters: saveLeadSchema,
-      },
-      draftFollowUp: {
-        description: 'Draft a follow-up email for the prospect',
-        parameters: draftFollowUpSchema,
-      },
-    },
-    maxToolRoundtrips: 3,
   })
 
   return result.toTextStreamResponse()
