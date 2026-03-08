@@ -33,8 +33,8 @@ export const equipment: Equipment[] = [
   },
   {
     icon: Camera,
-    name: 'Epiphan LUMiO PTZ Cameras',
-    description: '12x/20x optical zoom PTZ cameras. NDI, SDI, and HDMI output. Remote pan-tilt-zoom.',
+    name: 'Epiphan EC20 PTZ Camera',
+    description: '4K60 PTZ camera with 20x optical zoom. NDI, SDI, HDMI, and USB output. Advanced AI tracking.',
     badge: 'Professional PTZ',
     link: 'https://www.epiphan.com/products/lumio/',
   },

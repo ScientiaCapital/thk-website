@@ -10,7 +10,7 @@ const features = [
   {
     icon: Globe2,
     title: 'Trilingual Support',
-    description: 'English, Spanish, and Portuguese support for global organizations.',
+    description: 'English, Spanish, and Mandarin support for global organizations.',
   },
   {
     icon: Zap,
