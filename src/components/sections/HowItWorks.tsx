@@ -1,40 +1,43 @@
 import { Section, SectionHeader } from '@/components/layout/Section'
 import { Upload, Link2, Eye, Sparkles } from 'lucide-react'
-
-const steps = [
-  {
-    icon: Upload,
-    number: '01',
-    title: 'Setup',
-    description: 'We help you get Epiphan Pearl encoders configured and connected at your location.',
-  },
-  {
-    icon: Link2,
-    number: '02',
-    title: 'Connect',
-    description: 'Plug in your HDMI sources (laptops, cameras, document cams) and connect to your network.',
-  },
-  {
-    icon: Eye,
-    number: '03',
-    title: 'Monitor',
-    description: 'AI-powered monitoring watches your encoders and alerts us if anything needs attention.',
-  },
-  {
-    icon: Sparkles,
-    number: '04',
-    title: 'Record',
-    description: 'Focus on your content. The system handles recording, streaming, and archiving.',
-  },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function HowItWorks() {
+  const { t } = useLanguage()
+
+  const steps = [
+    {
+      icon: Upload,
+      number: '01',
+      title: t('how.step1.title'),
+      description: t('how.step1.desc'),
+    },
+    {
+      icon: Link2,
+      number: '02',
+      title: t('how.step2.title'),
+      description: t('how.step2.desc'),
+    },
+    {
+      icon: Eye,
+      number: '03',
+      title: t('how.step3.title'),
+      description: t('how.step3.desc'),
+    },
+    {
+      icon: Sparkles,
+      number: '04',
+      title: t('how.step4.title'),
+      description: t('how.step4.desc'),
+    },
+  ]
+
   return (
     <Section id="how-it-works" dark>
       <SectionHeader
-        tag="How It Works"
-        title="Simple Setup, Reliable Recording"
-        description="Our goal: make professional video infrastructure accessible to organizations of any size."
+        tag={t('how.tag')}
+        title={t('how.title')}
+        description={t('how.subtitle')}
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
