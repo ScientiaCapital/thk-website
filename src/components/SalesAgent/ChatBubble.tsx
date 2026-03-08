@@ -1,10 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MessageCircle, X } from 'lucide-react'
 import { ChatInterface } from './ChatInterface'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function ChatBubble() {
   const [isOpen, setIsOpen] = useState(false)
+  const { t } = useLanguage()
+
+  // Listen for "Talk to Our AI Now" button clicks from Hero/Contact
+  useEffect(() => {
+    const handler = () => setIsOpen(true)
+    window.addEventListener('thk:open-chat', handler)
+    return () => window.removeEventListener('thk:open-chat', handler)
+  }, [])
+
+  // Auto-open after 45 seconds on first visit (once per session)
+  useEffect(() => {
+    const alreadyOpened = sessionStorage.getItem('thk-chat-opened')
+    if (alreadyOpened) return
+    const timer = setTimeout(() => {
+      setIsOpen(true)
+      sessionStorage.setItem('thk-chat-opened', '1')
+    }, 45000)
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -19,6 +39,16 @@ export function ChatBubble() {
       >
         <ChatInterface />
       </div>
+
+      {/* CTA label when closed */}
+      {!isOpen && (
+        <div className="absolute bottom-1 right-16 flex items-center pointer-events-none">
+          <span className="bg-navy-950 border border-cyan-400/30 text-cyan-400 text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shadow-lg">
+            {t('chat.cta.label')}
+          </span>
+          <div className="w-2 h-2 bg-navy-950 border-r border-b border-cyan-400/30 rotate-[-45deg] -mr-1" />
+        </div>
+      )}
 
       {/* Toggle Button */}
       <button

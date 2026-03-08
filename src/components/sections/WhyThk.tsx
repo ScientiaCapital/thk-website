@@ -1,5 +1,5 @@
 import { Section, SectionHeader } from '@/components/layout/Section'
-import { DollarSign, Globe2, Zap, Settings, Bot, BarChart } from 'lucide-react'
+import { DollarSign, Globe2, Zap, Settings, Bot, BarChart, Link } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export function WhyThk() {
@@ -36,6 +36,11 @@ export function WhyThk() {
       title: t('why.analytics.title'),
       description: t('why.analytics.desc'),
     },
+    {
+      icon: Link,
+      title: t('why.open.title'),
+      description: t('why.open.desc'),
+    },
   ]
 
   return (
@@ -46,7 +51,7 @@ export function WhyThk() {
         description={t('why.subtitle')}
       />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:[&>*:last-child]:col-start-2">
         {features.map((feature) => (
           <div
             key={feature.title}

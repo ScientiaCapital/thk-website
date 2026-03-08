@@ -11,9 +11,11 @@ interface Message {
   content: string
 }
 
-const welcomeMessages = {
+const welcomeMessages: Record<string, string> = {
   en: "Hello! I'm the THK virtual assistant. I can help you learn about our video infrastructure services for universities, healthcare, corporations, government, and more. How can I help you today?",
   es: "¡Hola! Soy el asistente virtual de THK. Puedo ayudarte a conocer nuestros servicios de infraestructura de video para universidades, hospitales, corporativos, gobierno y más. ¿Cómo puedo ayudarte hoy?",
+  zh: "您好！我是 THK 虚拟助手。我可以帮助您了解我们为高校、医疗、企业、政府等机构提供的视频基础设施服务。请问有什么可以帮您？",
+  ru: "Здравствуйте! Я виртуальный ассистент THK. Я могу рассказать о наших услугах видеоинфраструктуры для университетов, медицины, бизнеса, государственных учреждений и других отраслей. Чем могу помочь?",
 }
 
 export function ChatInterface() {

@@ -1,7 +1,6 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { StatsBar } from '@/components/common/StatsBar'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, MessageCircle } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export function Hero() {
@@ -45,15 +44,30 @@ export function Hero() {
             </a>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <a href="#managed">{t('hero.cta.services')}</a>
+            <a href="#how-it-works">{t('hero.cta.services')}</a>
           </Button>
-          <Button variant="outline" size="lg" asChild>
-            <a href="#contact">{t('hero.cta.quote')}</a>
-          </Button>
+          <div className="flex flex-col items-center">
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
+              onClick={() => window.dispatchEvent(new CustomEvent('thk:open-chat'))}
+            >
+              {t('hero.cta.quote')}
+              <MessageCircle className="w-4 h-4 ml-1" />
+            </Button>
+            <p className="text-xs text-slate-500 mt-2">{t('hero.cta.chat.sub')}</p>
+          </div>
         </div>
 
-        {/* Stats bar */}
-        <StatsBar />
+        {/* Integration badges — ecosystem signal */}
+        <div className="mt-12 flex flex-wrap justify-center gap-3">
+          {['Epiphan Cloud', 'Kaltura', 'Panopto', 'AWS S3', 'YouTube Live', 'Zoom'].map((tool) => (
+            <span key={tool} className="text-xs text-slate-500 border border-blue-500/15 rounded-full px-3 py-1">
+              {tool}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   )

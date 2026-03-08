@@ -60,62 +60,48 @@ export function Navbar() {
           ))}
 
           {/* Language Toggle */}
-          <li className="flex items-center gap-1 ml-2 border border-blue-500/20 rounded-lg overflow-hidden">
-            <button
-              onClick={() => setLang('en')}
-              className={cn(
-                'px-2.5 py-1.5 text-xs font-medium transition-all',
-                lang === 'en'
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
-                  : 'text-slate-400 hover:text-white'
-              )}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang('es')}
-              className={cn(
-                'px-2.5 py-1.5 text-xs font-medium transition-all',
-                lang === 'es'
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
-                  : 'text-slate-400 hover:text-white'
-              )}
-            >
-              ES
-            </button>
+          <li className="flex items-center gap-0.5 ml-2 border border-blue-500/20 rounded-lg overflow-hidden">
+            {([['en', 'EN'], ['es', 'ES'], ['zh', '中'], ['ru', 'РУ']] as const).map(([code, label]) => (
+              <button
+                key={code}
+                onClick={() => setLang(code)}
+                className={cn(
+                  'px-2 py-1.5 text-xs font-medium transition-all',
+                  lang === code
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
+                    : 'text-slate-400 hover:text-white'
+                )}
+              >
+                {label}
+              </button>
+            ))}
           </li>
 
           <li>
-            <Button size="sm">{t('nav.quote')}</Button>
+            <Button size="sm" asChild>
+              <a href="#contact">{t('nav.quote')}</a>
+            </Button>
           </li>
         </ul>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-3">
           {/* Mobile Language Toggle */}
-          <div className="flex items-center gap-1 border border-blue-500/20 rounded-lg overflow-hidden">
-            <button
-              onClick={() => setLang('en')}
-              className={cn(
-                'px-2 py-1 text-xs font-medium transition-all',
-                lang === 'en'
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
-                  : 'text-slate-400 hover:text-white'
-              )}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang('es')}
-              className={cn(
-                'px-2 py-1 text-xs font-medium transition-all',
-                lang === 'es'
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
-                  : 'text-slate-400 hover:text-white'
-              )}
-            >
-              ES
-            </button>
+          <div className="flex items-center gap-0.5 border border-blue-500/20 rounded-lg overflow-hidden">
+            {([['en', 'EN'], ['es', 'ES'], ['zh', '中'], ['ru', 'РУ']] as const).map(([code, label]) => (
+              <button
+                key={code}
+                onClick={() => setLang(code)}
+                className={cn(
+                  'px-1.5 py-1 text-xs font-medium transition-all',
+                  lang === code
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
+                    : 'text-slate-400 hover:text-white'
+                )}
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
           <button
@@ -147,7 +133,9 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-          <Button className="mt-2">{t('nav.quote')}</Button>
+          <Button className="mt-2" asChild>
+            <a href="#contact" onClick={() => setIsOpen(false)}>{t('nav.quote')}</a>
+          </Button>
         </div>
       </div>
     </nav>

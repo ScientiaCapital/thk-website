@@ -16,7 +16,7 @@ export function About() {
                 T
               </div>
               <p className="text-slate-400 text-sm">
-                {lang === 'es' ? 'Centro de Operaciones THK' : 'THK Operations Center'}
+                {{ en: 'THK Operations Center', es: 'Centro de Operaciones THK', zh: 'THK 运营中心', ru: 'Операционный центр THK' }[lang]}
               </p>
             </div>
           </div>
@@ -28,9 +28,9 @@ export function About() {
             {t('about.tag')}
           </span>
           <h2 className="text-[clamp(2rem,4vw,2.8rem)] font-bold leading-tight mb-6">
-            {lang === 'es' ? 'Fundada por un ' : 'Founded by an 11-Year-Old '}
+            {{ en: 'Founded by an 11-Year-Old ', es: 'Fundada por un ', zh: '由一位11岁的', ru: 'Основано 11-летним ' }[lang]}{' '}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              {lang === 'es' ? 'Ingeniero de Video de 11 Años' : 'Video Engineer'}
+              {{ en: 'Video Engineer', es: 'Ingeniero de Video de 11 Años', zh: '视频工程师创立', ru: 'видеоинженером' }[lang]}
             </span>
           </h2>
           <div className="space-y-4 text-slate-400 leading-relaxed">
@@ -39,9 +39,10 @@ export function About() {
             <p>{t('about.p3')}</p>
           </div>
           <div className="flex flex-wrap gap-3 mt-6">
-            <Badge variant="cyan">{lang === 'es' ? 'Equipos Epiphan' : 'Epiphan Equipment'}</Badge>
-            <Badge variant="cyan">{lang === 'es' ? 'CDMX' : 'Mexico City'}</Badge>
-            <Badge variant="cyan">{lang === 'es' ? 'IA + Humano' : 'AI + Human'}</Badge>
+            <Badge variant="cyan">{{ en: 'Epiphan Equipment', es: 'Equipos Epiphan', zh: 'Epiphan 设备', ru: 'Оборудование Epiphan' }[lang]}</Badge>
+            <Badge variant="cyan">{{ en: 'Mexico City', es: 'CDMX', zh: '墨西哥城', ru: 'Мехико' }[lang]}</Badge>
+            <Badge variant="cyan">{{ en: 'AI + Human', es: 'IA + Humano', zh: 'AI + 人工', ru: 'AI + Человек' }[lang]}</Badge>
+            <Badge variant="cyan">{{ en: 'Open Platform', es: 'Plataforma Abierta', zh: '开放平台', ru: 'Открытая платформа' }[lang]}</Badge>
           </div>
         </div>
       </div>
