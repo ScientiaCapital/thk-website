@@ -29,9 +29,9 @@ function StatItem({ value, prefix, suffix, label }: StatItemProps) {
 export function StatsBar() {
   return (
     <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-blue-500/10 rounded-2xl overflow-hidden">
+      <StatItem value={10} suffix="+" label="Industries Served" />
       <StatItem value={99.9} suffix="%" label="Uptime SLA" />
       <StatItem value="24/7" label="Cloud Monitoring" />
-      <StatItem value={3} label="Languages" />
       <StatItem value={50} prefix="$" label="USD / Mo / Device" />
     </div>
   )
