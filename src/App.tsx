@@ -9,6 +9,7 @@ import { Verticals } from '@/components/sections/Verticals'
 import { WhyThk } from '@/components/sections/WhyThk'
 import { About } from '@/components/sections/About'
 import { Contact } from '@/components/sections/Contact'
+import { ChatBubble } from '@/components/SalesAgent/ChatBubble'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <ChatBubble />
     </div>
   )
 }
