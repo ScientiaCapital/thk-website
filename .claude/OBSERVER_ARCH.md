@@ -1,85 +1,164 @@
 # Observer 2: Architecture Report
 
-## Session: 2026-03-08
-**Scope:** Architecture analysis for THK Website
+## Session: 2026-03-08 (Updated)
+**Scope:** THK Website - Production Architecture
 
 ---
 
-## Current State
-Single monolithic HTML file with all CSS and JS inline.
+## Current State: PRODUCTION READY ✅
 
-## Target State
-Modular static site with:
-- Separated CSS (5 files by concern)
-- Separated JS (3 files by feature)
-- Vercel deployment with form handling
-
----
-
-## Findings
-
-### [SMELL] - Monolithic Structure
-**Component:** THK_Website.html
-**Description:** 940-line single file makes maintenance difficult.
-**Impact if ignored:** Harder to update individual sections, no code reuse.
-**Status:** Being resolved this session.
-
-### [RISK] - No Build System
-**Component:** Project root
-**Description:** No package.json, no bundler, no dev server.
-**Impact if ignored:** Cannot use npm packages, no hot reload during development.
-**Resolution:** Adding Vite for dev server and build.
-
-### [RISK] - Form Not Functional
-**Component:** Contact form
-**Description:** Form submission is simulated, not real.
-**Impact if ignored:** Leads will not be captured.
-**Resolution:** Integrating Formspree this session.
-
-### [INFO] - No Analytics
-**Component:** index.html
-**Description:** No Google Analytics, Plausible, or similar.
-**Impact if ignored:** Cannot track visitor behavior.
-**Resolution:** Out of scope for this session, log for future.
+Modern React single-page application with:
+- Component-based architecture
+- Custom i18n system (no external library)
+- Interactive UI with modals
+- Vercel Edge Functions for API
 
 ---
 
-## Dependency Map
+## Project Structure
 ```
-index.html
-├── css/
-│   ├── variables.css (required by all CSS)
-│   ├── base.css
-│   ├── components.css
-│   ├── sections.css
-│   └── responsive.css
-└── js/
-    ├── main.js
-    ├── animations.js
-    └── form.js (depends on Formspree endpoint)
+thk-website/
+├── .claude/
+│   ├── PROJECT_CONTEXT.md
+│   ├── OBSERVER_QUALITY.md
+│   └── OBSERVER_ARCH.md
+├── api/
+│   └── contact.ts         # Vercel Edge Function
+├── public/
+│   └── favicon.svg
+├── src/
+│   ├── main.tsx
+│   ├── App.tsx
+│   ├── index.css
+│   │
+│   ├── contexts/
+│   │   └── LanguageContext.tsx   # i18n (EN/ES)
+│   │
+│   ├── components/
+│   │   ├── ui/                   # shadcn components
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── badge.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── textarea.tsx
+│   │   │   ├── modal.tsx
+│   │   │   └── ...
+│   │   │
+│   │   ├── layout/
+│   │   │   ├── Navbar.tsx        # + Language toggle
+│   │   │   ├── Footer.tsx
+│   │   │   └── Section.tsx
+│   │   │
+│   │   ├── sections/
+│   │   │   ├── Hero.tsx
+│   │   │   ├── HowItWorks.tsx
+│   │   │   ├── ManagedServices.tsx
+│   │   │   ├── EventProduction.tsx
+│   │   │   ├── Equipment.tsx
+│   │   │   ├── WhyThk.tsx
+│   │   │   ├── About.tsx
+│   │   │   ├── Verticals.tsx     # 10 industries
+│   │   │   ├── VerticalDetail.tsx # Modal with equipment
+│   │   │   └── Contact.tsx
+│   │   │
+│   │   ├── common/
+│   │   │   ├── ServiceCard.tsx
+│   │   │   ├── VerticalCard.tsx  # Clickable
+│   │   │   ├── EquipmentCard.tsx
+│   │   │   └── StatsBar.tsx
+│   │   │
+│   │   └── SalesAgent/
+│   │       ├── ChatInterface.tsx
+│   │       └── ChatBubble.tsx
+│   │
+│   └── lib/
+│       └── utils.ts
+│
+├── tailwind.config.ts
+├── components.json           # shadcn config
+├── vite.config.ts
+├── vercel.json
+└── package.json
 ```
 
 ---
 
-## Technical Debt Backlog
-| Item | Priority | Estimated Effort |
-|------|----------|------------------|
-| Add analytics tracking | Low | 30 min |
-| Add favicon | Low | 15 min |
-| Image optimization | Medium | 1 hour |
-| Add sitemap.xml | Low | 15 min |
-| Add robots.txt | Low | 5 min |
+## Component Dependency Graph
+```
+App.tsx
+├── LanguageContext.Provider
+│   ├── Navbar (language toggle)
+│   ├── Hero
+│   ├── StatsBar
+│   ├── HowItWorks
+│   ├── ManagedServices
+│   ├── EventProduction
+│   ├── Equipment
+│   ├── WhyThk
+│   ├── Verticals
+│   │   ├── VerticalCard[] (clickable)
+│   │   └── VerticalDetail (modal)
+│   ├── About
+│   ├── Contact
+│   ├── Footer
+│   └── ChatInterface
+```
 
 ---
 
-## Architecture Decision Records
+## Key Architecture Decisions
 
-### ADR-001: Static Site with Vite
-**Decision:** Use Vite as dev server and build tool.
-**Rationale:** Fast HMR, zero-config for static sites, good Vercel integration.
-**Alternatives considered:** Plain HTML (no dev server), Parcel (less popular).
+### ADR-001: React + Vite (Implemented)
+**Decision:** Migrated from static HTML to React SPA
+**Rationale:** Component reuse, state management, better DX
+**Status:** ✅ Complete
 
-### ADR-002: Formspree for Contact Form
-**Decision:** Use Formspree instead of serverless function.
-**Rationale:** No backend code needed, free tier sufficient, AJAX support.
-**Alternatives considered:** Vercel serverless (more complex), Netlify Forms (different platform).
+### ADR-002: Custom i18n System
+**Decision:** Built translation system with Context API
+**Rationale:** Simple needs (2 languages), no external dependency
+**Files:** src/contexts/LanguageContext.tsx
+**Status:** ✅ Complete
+
+### ADR-003: Modal-based Detail Views
+**Decision:** Industry cards open modals instead of new pages
+**Rationale:** Single-page experience, faster navigation
+**Files:** src/components/ui/modal.tsx, VerticalDetail.tsx
+**Status:** ✅ Complete
+
+### ADR-004: Vercel Edge Functions
+**Decision:** Use Edge Runtime for API routes
+**Rationale:** Low latency, free tier, TypeScript support
+**Files:** api/contact.ts
+**Status:** ✅ Complete
+
+---
+
+## Tech Stack
+| Layer | Technology | Status |
+|-------|------------|--------|
+| Framework | React 18 | ✅ |
+| Language | TypeScript | ✅ |
+| Build | Vite | ✅ |
+| Styling | Tailwind CSS | ✅ |
+| Components | shadcn/ui | ✅ |
+| Icons | Lucide React | ✅ |
+| i18n | Custom Context | ✅ |
+| Hosting | Vercel | ✅ |
+| API | Vercel Edge | ✅ |
+
+---
+
+## Resolved Issues
+| Issue | Resolution |
+|-------|------------|
+| Monolithic HTML | ✅ Split into React components |
+| Inline CSS | ✅ Tailwind utility classes |
+| Fake form | ✅ Real Edge Function |
+| Single language | ✅ EN/ES toggle |
+| Static cards | ✅ Clickable with modals |
+
+---
+
+## Production URLs
+- **Live Site:** https://thk-website.vercel.app
+- **GitHub:** Connected to Vercel for auto-deploy
