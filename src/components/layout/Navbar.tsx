@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { navLinks } from '@/data/navigation'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { cn } from '@/lib/utils'
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const { lang, setLang, t } = useLanguage()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +16,15 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const navLinks = [
+    { label: t('nav.managed'), href: '#managed' },
+    { label: t('nav.production'), href: '#services' },
+    { label: t('nav.equipment'), href: '#equipment' },
+    { label: t('nav.industries'), href: '#verticals' },
+    { label: t('nav.about'), href: '#about' },
+    { label: t('nav.contact'), href: '#contact' },
+  ]
 
   return (
     <nav
@@ -37,7 +47,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-7">
+        <ul className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -48,19 +58,74 @@ export function Navbar() {
               </a>
             </li>
           ))}
+
+          {/* Language Toggle */}
+          <li className="flex items-center gap-1 ml-2 border border-blue-500/20 rounded-lg overflow-hidden">
+            <button
+              onClick={() => setLang('en')}
+              className={cn(
+                'px-2.5 py-1.5 text-xs font-medium transition-all',
+                lang === 'en'
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
+                  : 'text-slate-400 hover:text-white'
+              )}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLang('es')}
+              className={cn(
+                'px-2.5 py-1.5 text-xs font-medium transition-all',
+                lang === 'es'
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
+                  : 'text-slate-400 hover:text-white'
+              )}
+            >
+              ES
+            </button>
+          </li>
+
           <li>
-            <Button size="sm">Get a Quote</Button>
+            <Button size="sm">{t('nav.quote')}</Button>
           </li>
         </ul>
 
         {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-slate-400 hover:text-white transition-colors"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="md:hidden flex items-center gap-3">
+          {/* Mobile Language Toggle */}
+          <div className="flex items-center gap-1 border border-blue-500/20 rounded-lg overflow-hidden">
+            <button
+              onClick={() => setLang('en')}
+              className={cn(
+                'px-2 py-1 text-xs font-medium transition-all',
+                lang === 'en'
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
+                  : 'text-slate-400 hover:text-white'
+              )}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLang('es')}
+              className={cn(
+                'px-2 py-1 text-xs font-medium transition-all',
+                lang === 'es'
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
+                  : 'text-slate-400 hover:text-white'
+              )}
+            >
+              ES
+            </button>
+          </div>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 text-slate-400 hover:text-white transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -82,7 +147,7 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-          <Button className="mt-2">Get a Quote</Button>
+          <Button className="mt-2">{t('nav.quote')}</Button>
         </div>
       </div>
     </nav>

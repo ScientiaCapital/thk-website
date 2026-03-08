@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { MapPin, Mail, Phone, Clock, Send } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface ContactDetailProps {
   icon: typeof MapPin
@@ -36,43 +37,45 @@ function ContactDetail({ icon: Icon, label, value, href }: ContactDetailProps) {
 }
 
 export function Contact() {
+  const { t } = useLanguage()
+
   return (
     <Section id="contact">
       <div className="text-center mb-16">
         <span className="inline-block text-xs uppercase tracking-widest font-semibold text-thk-cyan mb-4">
-          Get Started
+          {t('contact.tag')}
         </span>
         <h2 className="text-[clamp(2rem,4vw,2.8rem)] font-bold leading-tight mb-4">
-          Let's Work Together
+          {t('contact.title')}
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto">
-          Ready to eliminate missed recordings? Reach out for a free consultation.
+          {t('contact.subtitle')}
         </p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-12">
         {/* Contact Info */}
         <div className="space-y-8">
-          <h3 className="text-2xl font-bold">Contact Information</h3>
+          <h3 className="text-2xl font-bold">{t('contact.info')}</h3>
           <p className="text-slate-400">
-            Reach out anytime. We are based in Mexico City and deploy equipment throughout the metropolitan area.
+            {t('contact.info.desc')}
           </p>
 
           <div className="space-y-6">
-            <ContactDetail icon={MapPin} label="Location" value="Mexico City, CDMX" />
+            <ContactDetail icon={MapPin} label={t('contact.location')} value="Ciudad de México, CDMX" />
             <ContactDetail
               icon={Mail}
-              label="Email"
+              label={t('contact.email')}
               value="hello@thkenterprises.com"
               href="mailto:hello@thkenterprises.com"
             />
             <ContactDetail
               icon={Phone}
-              label="WhatsApp"
+              label={t('contact.whatsapp')}
               value="+52 55 0000 0000"
               href="https://wa.me/525500000000"
             />
-            <ContactDetail icon={Clock} label="Availability" value="Weekends - US Business Hours" />
+            <ContactDetail icon={Clock} label={t('contact.availability')} value={t('contact.availability.value')} />
           </div>
         </div>
 
@@ -81,59 +84,59 @@ export function Contact() {
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium">
-                Full Name *
+                {t('contact.form.name')} *
               </label>
-              <Input id="name" placeholder="Your name" required />
+              <Input id="name" placeholder={t('contact.form.name')} required />
             </div>
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
-                Email *
+                {t('contact.form.email')} *
               </label>
-              <Input id="email" type="email" placeholder="you@organization.com" required />
+              <Input id="email" type="email" placeholder="tu@organizacion.com" required />
             </div>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label htmlFor="phone" className="text-sm font-medium">
-                Phone / WhatsApp
+                {t('contact.form.phone')}
               </label>
               <Input id="phone" placeholder="+52 55 ____" />
             </div>
             <div className="space-y-2">
               <label htmlFor="service" className="text-sm font-medium">
-                What do you need?
+                {t('contact.form.service')}
               </label>
               <select
                 id="service"
                 className="flex h-11 w-full rounded-xl border border-blue-500/15 bg-navy-950 px-4 py-2 text-sm text-slate-200 focus:outline-none focus:border-thk-cyan focus:ring-1 focus:ring-thk-cyan/30 transition-colors duration-200"
               >
-                <option value="">Select a service</option>
-                <option value="viaas">VIaaS - Managed Encoder</option>
-                <option value="lecture">Always-On Lecture Capture</option>
-                <option value="livestream">Multi-Camera Livestreaming</option>
-                <option value="video">4K Video Production</option>
+                <option value="">{t('contact.form.service.select')}</option>
+                <option value="viaas">{t('contact.form.service.viaas')}</option>
+                <option value="lecture">{t('contact.form.service.lecture')}</option>
+                <option value="livestream">{t('contact.form.service.livestream')}</option>
+                <option value="video">{t('contact.form.service.video')}</option>
               </select>
             </div>
           </div>
 
           <div className="space-y-2">
             <label htmlFor="message" className="text-sm font-medium">
-              Tell us about your needs *
+              {t('contact.form.message')} *
             </label>
             <Textarea
               id="message"
-              placeholder="How many rooms/locations? What are you recording?"
+              placeholder={t('contact.form.message.placeholder')}
               required
             />
           </div>
 
           <Button className="w-full" size="lg">
-            Send Message <Send className="w-4 h-4 ml-2" />
+            {t('contact.form.submit')} <Send className="w-4 h-4 ml-2" />
           </Button>
 
           <p className="text-xs text-slate-500 text-center">
-            Free consultation. We respond within 24 hours. No spam, ever.
+            {t('contact.form.disclaimer')}
           </p>
         </form>
       </div>

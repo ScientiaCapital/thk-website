@@ -10,25 +10,28 @@ import { WhyThk } from '@/components/sections/WhyThk'
 import { About } from '@/components/sections/About'
 import { Contact } from '@/components/sections/Contact'
 import { ChatBubble } from '@/components/SalesAgent/ChatBubble'
+import { LanguageProvider } from '@/contexts/LanguageContext'
 
 function App() {
   return (
-    <div className="min-h-screen bg-navy text-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <HowItWorks />
-        <ManagedServices />
-        <EventProduction />
-        <Equipment />
-        <Verticals />
-        <WhyThk />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
-      <ChatBubble />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen bg-navy text-white">
+        <Navbar />
+        <main>
+          <Hero />
+          <HowItWorks />
+          <ManagedServices />
+          <EventProduction />
+          <Equipment />
+          <Verticals />
+          <WhyThk />
+          <About />
+          <Contact />
+        </main>
+        <Footer />
+        <ChatBubble />
+      </div>
+    </LanguageProvider>
   )
 }
 

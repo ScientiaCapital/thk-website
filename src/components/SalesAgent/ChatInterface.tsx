@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Send, Bot, User, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Message {
   id: string
@@ -10,15 +11,29 @@ interface Message {
   content: string
 }
 
+const welcomeMessages = {
+  en: "Hello! I'm the THK virtual assistant. I can help you learn about our video infrastructure services for universities, healthcare, corporations, government, and more. How can I help you today?",
+  es: "¡Hola! Soy el asistente virtual de THK. Puedo ayudarte a conocer nuestros servicios de infraestructura de video para universidades, hospitales, corporativos, gobierno y más. ¿Cómo puedo ayudarte hoy?",
+}
+
 export function ChatInterface() {
+  const { lang, t } = useLanguage()
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
       role: 'assistant',
-      content:
-        "Hello! I'm the THK virtual assistant. I can help you learn about our video infrastructure services for universities, healthcare, corporations, government, and more. How can I help you today?",
+      content: welcomeMessages[lang],
     },
   ])
+
+  // Update welcome message when language changes
+  useEffect(() => {
+    setMessages((prev) =>
+      prev.map((m) =>
+        m.id === 'welcome' ? { ...m, content: welcomeMessages[lang] } : m
+      )
+    )
+  }, [lang])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
@@ -213,7 +228,7 @@ export function ChatInterface() {
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about our video services..."
+            placeholder={t('chat.placeholder')}
             className="flex-1 text-xs sm:text-sm"
             disabled={isLoading}
           />
@@ -231,7 +246,7 @@ export function ChatInterface() {
           </Button>
         </div>
         <p className="text-[9px] sm:text-[10px] text-slate-500 text-center mt-2">
-          Powered by Claude AI
+          {t('chat.powered')}
         </p>
       </form>
     </div>

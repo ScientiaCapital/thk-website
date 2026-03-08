@@ -1,5 +1,5 @@
 import { Youtube, Instagram, Linkedin, ExternalLink } from 'lucide-react'
-import { footerLinks } from '@/data/navigation'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const socialLinks = [
   { icon: Youtube, href: '#', label: 'YouTube' },
@@ -8,6 +8,16 @@ const socialLinks = [
 ]
 
 export function Footer() {
+  const { t } = useLanguage()
+
+  const footerLinks = [
+    { label: t('nav.managed'), href: '#managed' },
+    { label: t('nav.production'), href: '#services' },
+    { label: t('nav.equipment'), href: '#equipment' },
+    { label: t('nav.about'), href: '#about' },
+    { label: t('nav.contact'), href: '#contact' },
+  ]
+
   return (
     <footer className="bg-navy border-t border-blue-500/10 py-12 px-6">
       <div className="max-w-6xl mx-auto">
@@ -19,7 +29,7 @@ export function Footer() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-navy-950 border border-blue-500/10 hover:border-cyan-400/30 transition-colors"
           >
-            <span className="text-sm text-slate-400">Powered by</span>
+            <span className="text-sm text-slate-400">{t('footer.epiphan').split(' ')[0]}</span>
             <span className="text-sm font-semibold text-thk-cyan">Epiphan Video</span>
             <ExternalLink className="w-3 h-3 text-slate-500" />
           </a>
@@ -35,7 +45,7 @@ export function Footer() {
               <span className="font-display font-bold text-lg">THK Enterprises</span>
             </div>
             <p className="text-sm text-slate-500">
-              2026 THK Enterprises. Mexico City. All rights reserved.
+              {t('footer.rights')}
             </p>
           </div>
 

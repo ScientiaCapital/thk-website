@@ -1,46 +1,49 @@
 import { Section, SectionHeader } from '@/components/layout/Section'
 import { DollarSign, Globe2, Zap, Settings, Bot, BarChart } from 'lucide-react'
-
-const features = [
-  {
-    icon: DollarSign,
-    title: 'Fraction of the Cost',
-    description: '$50-75/month per device vs. $50,000/year for a full-time AV tech.',
-  },
-  {
-    icon: Globe2,
-    title: 'Trilingual Support',
-    description: 'English, Spanish, and Mandarin support for global organizations.',
-  },
-  {
-    icon: Zap,
-    title: 'Zero Downtime',
-    description: '99.9% uptime SLA backed by 24/7 monitoring and proactive alerts.',
-  },
-  {
-    icon: Settings,
-    title: 'Fully Managed',
-    description: 'We handle scheduling, firmware updates, and troubleshooting remotely.',
-  },
-  {
-    icon: Bot,
-    title: 'AI-Powered Operations',
-    description: 'Our AI agents monitor quality, detect issues, and alert our team instantly.',
-  },
-  {
-    icon: BarChart,
-    title: 'Analytics & Reports',
-    description: 'Monthly reports on recording success rates, viewer engagement, and usage.',
-  },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function WhyThk() {
+  const { t } = useLanguage()
+
+  const features = [
+    {
+      icon: DollarSign,
+      title: t('why.cost.title'),
+      description: t('why.cost.desc'),
+    },
+    {
+      icon: Globe2,
+      title: t('why.trilingual.title'),
+      description: t('why.trilingual.desc'),
+    },
+    {
+      icon: Zap,
+      title: t('why.uptime.title'),
+      description: t('why.uptime.desc'),
+    },
+    {
+      icon: Settings,
+      title: t('why.managed.title'),
+      description: t('why.managed.desc'),
+    },
+    {
+      icon: Bot,
+      title: t('why.ai.title'),
+      description: t('why.ai.desc'),
+    },
+    {
+      icon: BarChart,
+      title: t('why.analytics.title'),
+      description: t('why.analytics.desc'),
+    },
+  ]
+
   return (
     <Section id="why-thk">
       <SectionHeader
-        tag="Why THK"
-        title="The Unfair Advantage of Managed Video Infrastructure"
-        description="We combine enterprise-grade hardware with modern cloud management and AI-powered operations."
+        tag={t('why.tag')}
+        title={t('why.title')}
+        description={t('why.subtitle')}
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
