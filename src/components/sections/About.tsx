@@ -1,4 +1,4 @@
-import { Section, SectionHeader } from '@/components/layout/Section'
+import { Section } from '@/components/layout/Section'
 import { Badge } from '@/components/ui/badge'
 
 export function About() {
