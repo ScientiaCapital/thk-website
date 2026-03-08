@@ -38,6 +38,8 @@ export function ChatInterface() {
     setIsLoading(true)
     setError(null)
 
+    const assistantId = (Date.now() + 1).toString()
+
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -51,37 +53,54 @@ export function ChatInterface() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to get response')
+        throw new Error(`HTTP ${response.status}`)
       }
 
-      const reader = response.body?.getReader()
-      if (!reader) throw new Error('No reader')
-
-      let assistantContent = ''
-      const assistantId = (Date.now() + 1).toString()
-
-      // Add placeholder message
+      // Add placeholder for streaming response
       setMessages((prev) => [
         ...prev,
         { id: assistantId, role: 'assistant', content: '' },
       ])
 
+      // Read the stream
+      const reader = response.body?.getReader()
+      if (!reader) {
+        throw new Error('No response body')
+      }
+
       const decoder = new TextDecoder()
+      let fullContent = ''
+
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
 
-        const chunk = decoder.decode(value)
-        assistantContent += chunk
+        const text = decoder.decode(value, { stream: true })
+        fullContent += text
 
         setMessages((prev) =>
           prev.map((m) =>
-            m.id === assistantId ? { ...m, content: assistantContent } : m
+            m.id === assistantId ? { ...m, content: fullContent } : m
           )
         )
       }
-    } catch {
+
+      // Final decode
+      const remaining = decoder.decode()
+      if (remaining) {
+        fullContent += remaining
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantId ? { ...m, content: fullContent } : m
+          )
+        )
+      }
+
+    } catch (err) {
+      console.error('Chat error:', err)
       setError('Connection error. Please try again.')
+      // Remove the empty assistant message on error
+      setMessages((prev) => prev.filter((m) => m.id !== assistantId))
     } finally {
       setIsLoading(false)
     }
@@ -134,28 +153,16 @@ export function ChatInterface() {
             {/* Message bubble */}
             <div
               className={cn(
-                'max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed',
+                'max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap',
                 m.role === 'user'
                   ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-br-md'
                   : 'bg-navy-900 text-slate-300 rounded-bl-md border border-blue-500/10'
               )}
             >
-              {m.content || '...'}
+              {m.content || <Loader2 className="w-4 h-4 animate-spin" />}
             </div>
           </div>
         ))}
-
-        {/* Loading indicator */}
-        {isLoading && messages[messages.length - 1]?.role === 'user' && (
-          <div className="flex gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shrink-0">
-              <Bot className="w-4 h-4 text-white" />
-            </div>
-            <div className="bg-navy-900 border border-blue-500/10 px-4 py-2.5 rounded-2xl rounded-bl-md">
-              <Loader2 className="w-4 h-4 animate-spin text-thk-cyan" />
-            </div>
-          </div>
-        )}
 
         {/* Error message */}
         {error && (
@@ -176,11 +183,11 @@ export function ChatInterface() {
             disabled={isLoading}
           />
           <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
-            <Send className="w-4 h-4" />
+            {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
           </Button>
         </div>
         <p className="text-[10px] text-slate-500 text-center mt-2">
-          Powered by Claude AI. Your data is secure.
+          Powered by Claude AI
         </p>
       </form>
     </div>
