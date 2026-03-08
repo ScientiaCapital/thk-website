@@ -1,0 +1,61 @@
+/* THK Enterprises - CSS Variables */
+
+:root {
+  /* Colors - Navy palette */
+  --navy: #0a1628;
+  --navy-light: #131f38;
+  --navy-mid: #1a2a4a;
+
+  /* Colors - Accents */
+  --blue: #3b82f6;
+  --blue-glow: #60a5fa;
+  --cyan: #22d3ee;
+  --orange: #f97316;
+  --green: #10b981;
+  --purple: #a78bfa;
+
+  /* Colors - Neutrals */
+  --white: #f8fafc;
+  --gray: #94a3b8;
+  --gray-light: #cbd5e1;
+
+  /* Gradients */
+  --gradient-blue: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --gradient-cyan: linear-gradient(135deg, #22d3ee, #3b82f6);
+  --gradient-green: linear-gradient(135deg, #10b981, #22d3ee);
+
+  /* Typography */
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+  --spacing-2xl: 6rem;
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 100px;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 20px rgba(59, 130, 246, 0.3);
+  --shadow-md: 0 8px 30px rgba(59, 130, 246, 0.4);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.3);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.6s ease;
+
+  /* Layout */
+  --max-width: 1100px;
+  --max-width-hero: 850px;
+  --nav-height: 72px;
+}
